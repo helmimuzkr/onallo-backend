@@ -4,7 +4,7 @@
 <div class="section-content section-dashboard-home"data-aos="fade-up">
  <div class="container-fluid">
   <div class="dashboard-heading">
-    <h2 class="dashboard-title"></h2>
+    <h2 class="dashboard-title">{{ $transaction->code }}</h2>
     <p class="dashboard-subtitle">Transaction Details</p>
   </div>
   <div class="dashboard-content" id="transactionDetails">
@@ -36,15 +36,15 @@
                </div>
                 <div class="row mt-3 mb-5">
                   <div class="col">
-                    <div class="product-title">Status Transaksi</div>
+                    <div class="product-title">Status Pengiriman</div>
                     @if ($transaction->shipping_status == 'PENDING')
                       <input 
                       type="text" 
                       name="shipping_status" 
                       class="form-control" 
                       value="Pending" disabled>
-                    @elseif ($transaction->shipping_status == 'SHIPPING')
-                      <input 
+                    @else
+                    <input 
                       type="text" 
                       name="shipping_status" 
                       class="form-control" 
@@ -56,12 +56,6 @@
                       class="form-control" 
                       value="{{ $transaction->resi }}"
                       disabled>
-                    @else
-                      <input 
-                      type="text" 
-                      name="shipping_status" 
-                      class="form-control" 
-                      value="Berhasil" disabled>
                     @endif
                     {{-- <select 
                     name="shipping_status" 
@@ -112,9 +106,13 @@
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="product-title">Status Pembayaran</div>
-                    <div class="product-subtitle text-danger">
-                      {{ $transaction->transaction->transaction_status}}
-                    </div>
+                    @if ($transaction->transaction->transaction_status == 'PENDING')
+                    <div class="product-subtitle text-warning">{{ $transaction->transaction->transaction_status }}</div>
+                    @elseif ($transaction->transaction->transaction_status == 'SHIPPING')
+                    <div class="product-subtitle text-primary">{{ $transaction->transaction->transaction_status }}</div>
+                    @else
+                    <div class="product-subtitle text-success">{{ $transaction->transaction->transaction_status }}</div>
+                    @endif
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="product-title">Total</div>

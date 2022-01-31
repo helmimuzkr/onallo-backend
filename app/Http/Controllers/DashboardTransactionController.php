@@ -12,15 +12,16 @@ use Illuminate\Support\Facades\Auth;
 class DashboardTransactionController extends Controller
 {
     public function dashboard_transaction() {
-        $transactions = TransactionDetail::with(['transaction.user', 'product.galleries'])
+        $transactions = TransactionDetail::with(['transaction.user'])
+                                        ->where('users_id', Auth::user()->id)->get();
+        $transactions_paginate = TransactionDetail::with(['transaction.user', 'product.galleries'])
                                         ->whereHas('transaction', function($transaction){
                                             $transaction->where('users_id', Auth::user()->id);
-                                        })->get();
-        $transaction_invoice = Transaction::all();
+                                        })->paginate(5);
 
         return view('pages.dashboard-transaction', [
             'transactions' => $transactions,
-            'invoice' => $transaction_invoice
+            'paginate' => $transactions_paginate
         ]);
     }
 

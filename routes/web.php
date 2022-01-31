@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TransactionController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -78,10 +79,11 @@ Route::prefix('admin')
     ->group(function() {
         Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
                 ->name('admin-dashboard');
-        Route::resource('category', CategoryController::class);
-        Route::resource('user', UserController::class);
-        Route::resource('product', ProductController::class);
-        Route::resource('product-gallery', ProductGalleryController::class);
+        Route::resource('category', 'CategoryController');
+        Route::resource('user', 'UserController');
+        Route::resource('product', 'ProductController');
+        Route::resource('product-gallery', 'ProductGalleryController');
+        Route::resource('transaction', 'TransactionController');
     });
 
 Auth::routes();

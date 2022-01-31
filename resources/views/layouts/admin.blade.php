@@ -46,7 +46,8 @@
                 <a href="{{ route('product-gallery.index') }}" class="list-group-item list-group-item-action
                 {{ (request()->is('admin/product-gallery*')) ? 'active' : '' }}">
                 Product Galleries</a>
-                <a href="#" class="list-group-item list-group-item-action"
+                <a href="{{ route('transaction.index') }}" class="list-group-item list-group-item-action
+                {{ (request()->is('admin/transaction*')) ? 'active' : '' }}"
                 >Transactions</a
                 >
                 <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action
@@ -112,14 +113,6 @@
                     Hi, {{Auth::user()->name}}!
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('home') }}"
-                      >Store</a
-                    >
-                    <a class="dropdown-item " href="{{ route('admin-dashboard') }}"
-                    style="display: none"
-                      >Dashboard</a
-                    >
-                    <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); 
                         document.getElementById('logout-form').submit();"  
@@ -141,8 +134,6 @@
                   <a class="nav-link font-weight-bold" href="#"> Hi, {{Auth::user()->name}}! </a>
                 </li>
                 <li class="nav-item">
-                  <a class="dropdown-item " href="{{ route('home') }}">Store</a>
-                  <a class="dropdown-item" href="{{ route('admin-dashboard') }}">Dashboard</a>
                   <div class="dropdown-divider"></div>
                   <a class="nav-link d-inline ml-4" href="/">Logout</a>
                 </li>
