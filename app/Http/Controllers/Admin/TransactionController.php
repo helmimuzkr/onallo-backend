@@ -97,7 +97,7 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $transactions = TransactionDetail::with(['transaction.user' ])
+        $transaction = TransactionDetail::with(['transaction.user', 'product.galleries'])
                                         ->whereHas('transaction', function($transaction){
                                             $transaction->where('users_id', Auth::user()->id);
                                         })->get();
@@ -106,17 +106,17 @@ class TransactionController extends Controller
                                             $transaction->where('users_id', Auth::user()->id);
                                         })->paginate(5);
 
-        $transaction = TransactionDetail::with(['transaction.user', 'product.galleries'])
+        $item = TransactionDetail::with(['transaction.user', 'product.galleries'])
                                         ->findOrFail($id);
-        
-                                        
-        $item = Transaction::with(['user'])->findOrFail($id);
+
+        $transactions = Transaction::with(['user'])->findOrFail($id);
+
         
         return view('pages.admin.transaction.edit',[
             'item' => $item,
-            'transactions' => $transactions,
-            'paginate' => $transactions_paginate,
             'transaction' => $transaction,
+            'transactions' => $transactions,
+            'transactions_paginate' => $transactions_paginate,
         ]);
     }
 
@@ -131,15 +131,13 @@ class TransactionController extends Controller
     {
         $data = $request->all();
 
-        $item = Transaction::findOrFail($id);
+        $transactions = Transaction::findOrFail($id);
 
-        $item->update($data);
+        $transactions->update($data);
 
-        $tes = $request->all();
+        $transaction = TransactionDetail::findOrFail($id);
 
-        $item_tes = TransactionDetail::findOrFail($id);
-
-        $item_tes->update($tes);
+        $transaction->update($data);
 
 
         return redirect()->route('transaction.edit', $id);

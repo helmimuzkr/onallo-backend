@@ -13,7 +13,9 @@ class Transaction extends Model
 
 
     protected $fillable = [
-        'users_id', 'code', 'notes', 'subtotal', 'shipping_price', 'total', 'transaction_status'
+        'users_id', 'code', 'notes', 
+        'subtotal', 'shipping_price', 'total', 
+        'transaction_status', 'shipping_status', 'resi'
     ];
 
     protected $hidden = [];

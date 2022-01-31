@@ -37,6 +37,8 @@ class CheckoutController extends Controller
             'subtotal' => $request->sub_total,
             'total' => $request->total_price,
             'transaction_status' => 'PENDING',
+            'shipping_status' => 'PENDING',
+            'resi' => '',
         ]);
 
         foreach ($carts as $cart) {
