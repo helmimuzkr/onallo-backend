@@ -10,8 +10,7 @@
             <div
               id="storeCarousel"
               class="carousel slide"
-              data-ride="carousel"
-            >
+              data-ride="carousel">
               <ol class="carousel-indicators">
                 <li
                   data-target="#storeCarousel"

@@ -41,6 +41,7 @@ class CheckoutController extends Controller
             'resi' => '',
         ]);
 
+
         foreach ($carts as $cart) {
             $trx = 'TRX/'. mt_rand(00000,99999);
 
@@ -112,6 +113,8 @@ class CheckoutController extends Controller
 
         // Cari transaksi berdasarkan ID
         $transaction = Transaction::findOrFail($order_id);
+
+        dd($transaction);
 
         // Handle notification status midtrans
         if ($status == 'capture') {
