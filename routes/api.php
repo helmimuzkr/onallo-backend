@@ -26,3 +26,13 @@ Route::get('regencies/{provinces_id}', [\App\Http\Controllers\API\LocationContro
         ->name('api-regencies');
 Route::get('districts/{regencies_id}', [\App\Http\Controllers\API\LocationController::class, 'districts'])
         ->name('api-districts');
+        
+Route::post('/checkout/callback', [\App\Http\Controllers\CheckoutController::class, 'callback'])
+        ->name('midtrans-callback');
+
+Route::GET('/city/{province_id}', [\App\Http\Controllers\API\LocationController::class, 'city'])
+        ->name('api-city');
+Route::GET('/city_id/{city_id}', [\App\Http\Controllers\API\LocationController::class, 'city_id'])
+        ->name('api-city_id');
+Route::POST('/rajaongkir/checkOngkir', [\App\Http\Controllers\API\LocationController::class, 'checkOngkir'])
+        ->name('api-checkOngkir');

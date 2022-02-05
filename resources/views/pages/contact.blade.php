@@ -13,57 +13,62 @@
         <div class="row mt-3">
           <div class="col-lg-4">
             <div class="card py-4 mb-3">
-              <div class="row align-items-center">
-                <div class="col-4 d-flex justify-content-end">
-                  <img
-                    src="/images/icon-email.svg"
-                    alt=""
-                    class="img-fluid"
-                  />
+              <a href="#" target="_blank" style="text-decoration: none;">
+                <div class="row align-items-center">
+                  <div class="col-4 d-flex justify-content-end">
+                    <img
+                      src="/images/icon-email.svg"
+                      alt=""
+                      class="img-fluid"
+                    />
+                  </div>
+                  <div class="col-8">
+                    <div class="title">Email</div>
+                    <div class="text">onalloid@gmail.com</div>
+                  </div>
                 </div>
-                <div class="col-8">
-                  <div class="title">Email</div>
-                  <div class="text">onalloid@gmail.com</div>
-                </div>
-              </div>
+              </a>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="card py-4 mb-3">
-              <div class="row align-items-center">
-                <div class="col-4 d-flex justify-content-end">
-                  <img
-                    src="/images/icon-telephone.svg"
-                    alt=""
-                    class="img-fluid"
-                  />
+              <a href="#" target="_blank" style="text-decoration: none;">
+                <div class="row align-items-center">
+                  <div class="col-4 d-flex justify-content-end">
+                    <img
+                      src="/images/icon-telephone.svg"
+                      alt=""
+                      class="img-fluid"
+                    />
+                  </div>
+                  <div class="col-8">
+                    <div class="title">Telephone</div>
+                    <div class="text">+62 851 6300 6345</div>
+                  </div>
                 </div>
-                <div class="col-8">
-                  <div class="title">Telephone</div>
-                  <div class="text">+62 851 6300 6345</div>
-                </div>
-              </div>
+              </a>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="card py-4 mb-3">
-              <div class="row align-items-center">
-                <div class="col-4 d-flex justify-content-end">
-                  <img
-                    src="/images/icon-instagram.svg"
-                    alt=""
-                    class="img-fluid"
-                  />
+              <a href="https://www.instagram.com/onallo.id/" target="_blank" style="text-decoration: none;">
+                <div class="row align-items-center">
+                  <div class="col-4 d-flex justify-content-end">
+                    <img
+                      src="/images/icon-instagram.svg"
+                      alt=""
+                      class="img-fluid"
+                    />
+                  </div>
+                  <div class="col-8">
+                    <div class="title">Instagram</div>
+                    <div class="text">onallo.id</div>
+                  </div>
                 </div>
-                <div class="col-8">
-                  <div class="title">Instagram</div>
-                  <div class="text">onallo.id</div>
-                </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
-      </div>
     </section>
 
     <!-- More Info -->

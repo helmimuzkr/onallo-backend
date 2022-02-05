@@ -138,13 +138,6 @@
               })
           }
         },
-        data() {
-          return {
-            name: 'Helmi',
-            email: 'helmi@gmail.com',
-            email_unavailable: false,
-          }
-        },
       });
     </script>    
 @endpush

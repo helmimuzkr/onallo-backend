@@ -24,9 +24,6 @@ Route::get('/details/{id}', [\App\Http\Controllers\DetailController::class, 'det
 Route::POST('/details/{id}', [\App\Http\Controllers\DetailController::class, 'add'])
         ->name('detail-add');
 
-Route::get('/checkout/callback', [\App\Http\Controllers\CheckoutController::class, 'callback'])
-        ->name('midtrans-callback');
-
 
 // Authentification
 Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])
@@ -46,6 +43,8 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::post('/checkout', [\App\Http\Controllers\CheckoutController::class, 'process'])
                 ->name('checkout');
+        Route::post('/checkout/callback', [\App\Http\Controllers\CheckoutController::class, 'callback'])
+                ->name('midtrans-callback');
 
         // Dashboard
         Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])

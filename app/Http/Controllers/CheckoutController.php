@@ -20,7 +20,7 @@ class CheckoutController extends Controller
     public function process(Request $request) {
         // Save users data
         $user = Auth::user();
-        $user->update($request->except(['total_price', 'sub_total', 'notes']));
+        $user->update($request->except(['total', 'sub_total', 'notes']));
 
         // Process checkout
         $code = 'INV/'. mt_rand(00000,99999);
@@ -34,13 +34,14 @@ class CheckoutController extends Controller
             'shipping_price' => 0,
             'code' => $code,
             'notes' => $request->notes,
+            'courier' => $request->courier,
+            'cost' => $request->cost,
             'subtotal' => $request->sub_total,
-            'total' => $request->total_price,
+            'total' => $request->total,
             'transaction_status' => 'PENDING',
             'shipping_status' => 'PENDING',
             'resi' => '',
         ]);
-
 
         foreach ($carts as $cart) {
             $trx = 'TRX/'. mt_rand(00000,99999);
@@ -71,7 +72,7 @@ class CheckoutController extends Controller
         $midtrans = [
             'transaction_details' => [
                 'order_id' => $code,
-                'gross_amount' => (int) $request->total_price
+                'gross_amount' => (int) $request->total
             ],
             'customer_details' => [
                 'first_name' => Auth::user()->name,
@@ -103,7 +104,7 @@ class CheckoutController extends Controller
         Config::$is3ds = config('services.midtrans.is3ds');
 
         // Buat instance midtrans notification
-        $notification = new Notification();
+        $notification = new \Midtrans\Notification();
 
         // Assign ke variable untuk memudahkan coding
         $status = $notification->transaction_status;
@@ -113,8 +114,6 @@ class CheckoutController extends Controller
 
         // Cari transaksi berdasarkan ID
         $transaction = Transaction::findOrFail($order_id);
-
-        dd($transaction);
 
         // Handle notification status midtrans
         if ($status == 'capture') {

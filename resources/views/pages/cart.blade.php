@@ -132,23 +132,14 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="regencies_id">Kota/Kabupaten</label>
-            <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies" v-model="regencies_id">
+            <label >Kota/Kabupaten</label>
+            <select name="city_id" id="regencies_id" class="form-control" v-if="regencies" v-model="city_id">
               <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}</option>
             </select>
             <select v-else class="form-control"></select>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="districts_id">Kecamatan</label>
-            <select name="districts_id" id="districts_id" class="form-control" v-if="districts" v-model="districts_id">
-              <option v-for="district in districts" :value="district.id">@{{ district.name }}</option>
-            </select>
-            <select v-else class="form-control"></select>
-          </div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="form-group">
             <label for="zip_code">Kode Pos</label>
             <input
@@ -160,7 +151,7 @@
           />
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="form-group">
             <label for="phone_number">Nomor Telepon</label>
             <input
@@ -184,6 +175,85 @@
             />
           </div>
         </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label >KURIR PENGIRIMAN</label>
+                  
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input select-courier"
+                      type="radio"
+                      name="courier"
+                      id="ongkos_kirim-jne"
+                      value="jne"
+                      v-model="courier_type"
+                      @change="getOngkir()"
+                    />
+                    <label
+                      class="form-check-label font-weight-bold mr-4"
+                      for="ongkos_kirim-jne"
+                    >
+                      JNE</label
+                    >
+                    <input
+                      class="form-check-input select-courier"
+                      type="radio"
+                      name="courier"
+                      id="ongkos_kirim-tiki"
+                      value="tiki"
+                      v-model="courier_type"
+                      @change="getOngkir()"
+                    />
+                    <label
+                      class="form-check-label font-weight-bold mr-4"
+                      for="ongkos_kirim-jnt"
+                      >TIKI</label
+                    >
+                    <input
+                      class="form-check-input select-courier"
+                      type="radio"
+                      name="courier"
+                      id="ongkos_kirim-pos"
+                      value="pos"
+                      v-model="courier_type"
+                      @change="getOngkir()"
+                    />
+                    <label
+                      class="form-check-label font-weight-bold"
+                      for="ongkos_kirim-jnt"
+                      >POS</label
+                    >
+                </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" v-if="cost">
+            <label class="font-weight-bold">SERVICE KURIR</label>
+            <br />
+           <div
+              v-for="value in costs"
+              :key="value.service"
+              class="form-check form-check-inline"
+            >
+              <input
+                class="form-check-input"
+                type="radio"
+                name="cost"
+                :id="value.service"
+                :value="value.cost[0].value + '_' + value.service"
+                v-model="costService"
+                @change="getCostService()"
+              />
+              <label
+                class="form-check-label font-weight-normal mr-5"
+                :for="value.service"
+              >
+                 @{{ value.service }} - Rp.
+                @{{ value.cost[0].value }}</label
+              >
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row" data-aos="fade-up" data-aos-delay="200">
         <div class="col-12 col-md-5">
@@ -196,12 +266,12 @@
           <div class="product-subtitle">Subtotal</div>
         </div>
         <div class="col-4 col-md-2 mt-3">
-          <div class="product-title">Rp.13,000</div>
-          <div class="product-subtitle">Ongkir</div>
+          <div class="product-title" name="courier"  id="courier_cost">Rp0</div>
+          <div class="product-subtitle">Tujuan <p id="tujuan"></p></div>
         </div>
         <div class="col-4 col-md-2 mt-3">
-          <div class="product-title" style="color: #073466">
-            <b>Rp{{ number_format($subTotalPrice + 13000, 0, '.', '.') }}</b>
+          <div class="product-title" style="color: #073466" id="totalPembayaran">Rp0
+            {{-- <b>Rp{{ number_format($subTotalPrice + 13000, 0, '.', '.') }}</b> --}}
           </div>
           <div class="product-subtitle">
             <b>Total</b>
@@ -214,7 +284,8 @@
         </div>
       </div>
       <input type="hidden" name="sub_total" value="{{ $subTotalPrice }}">
-      <input type="hidden" name="total_price" value="{{ $subTotalPrice + 13000 }}">
+      <input type="hidden" id="totalPrice" name="total" value="{{ $subTotalPrice }}">
+      <input type="hidden" id="totalPay" name="total_pay" value="{{ $subTotalPrice }}">
       </form>
     </div>
   </section>
@@ -226,6 +297,7 @@
 <script src="/vendor/vue/vue.js"></script>
 <script src="https://unpkg.com/vue-toasted"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <!-- Script vue.js untuk galery -->
 <script>
   var locations = new Vue({
@@ -234,16 +306,71 @@
       AOS.init();/* memanggil AOS.init */
       this.getProvincesData();
     },
-    data: {
-      provinces: null,
-      regencies: null,
-      districts: null,
-      provinces_id: null,
-      regencies_id: null,
-      districts_id: null,
-
-    },
+    data(){
+          return{
+            courier:false,
+            courier_cost:0,
+            courier_service:"",
+            cost:false,
+            costs:[],
+            costService:null,
+            provinces:null,
+            regencies:null,
+            provinces_id:null,
+            city_id:null,
+            courier_type:null,
+            checkout:null,
+          }
+        },
     methods: {
+      GetCourier(){
+            var self = this;
+            self.courier = true;
+             axios.get('{{ url('api/city_id') }}/' + self.city_id)
+                    .then(function(response){
+                    self.city = response.data.name;
+                    document.getElementById("tujuan").innerHTML  = response.data.name;
+              });
+            // console.log(self.city_id)
+          },
+      getOngkir(){
+        var self = this;
+          axios.post("{{ route('api-checkOngkir') }}", {
+            city_destination: self.city_id, // <-- ID kota
+            courier: self.courier_type, // jenis kurir
+          })
+            .then((response) => {
+              
+              // set state cost menjadi true, untuk menampilkan pilihan cost pengiriman
+              self.cost = true;
+              //assign state costs dengan hasil response
+              self.costs = response.data.data[0].costs;
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        
+      },
+
+      getCostService(){
+            var self = this;
+            let shipping = self.costService.split("_");
+            self.checkout = true;
+            
+            self.courier_cost = shipping[0];
+            self.courier_service = shipping[1];
+            let total = document.getElementById('totalPay').value;
+            // console.log(total)
+            console.log(self.courier_cost)
+            let formatCost = new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 5 }).format(self.courier_cost);
+            document.getElementById('courier_cost').innerHTML = `Rp${formatCost}`;
+            let totalPayment = parseInt(total) + parseInt(self.courier_cost);
+            let formatPayment = new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 6 }).format(totalPayment);
+            console.log("total " + totalPayment);
+            document.getElementById('totalPembayaran').innerHTML = `Rp${formatPayment}`;
+            
+            document.getElementById('totalPrice').value = totalPayment;
+          },
       getProvincesData: function() {
         var self = this;
         axios.get('{{ route('api-provinces') }}')
@@ -253,17 +380,12 @@
       },
       getRegenciesData: function() {
         var self = this;
-        axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
-        .then(function(response) {
-            self.regencies = response.data;
-          }) 
-      },
-      getDistrictsData: function() {
-        var self = this;
-        axios.get('{{ url('api/districts') }}/' + self.regencies_id)
-        .then(function(response) {
-            self.districts = response.data;
-          }) 
+        axios.get('{{ url('api/city') }}/' + self.provinces_id)
+                    .then(function(response){
+                      console.log(response.data)
+                    self.regencies = response.data;
+                      
+              });
       },
     },
     watch: {
@@ -271,10 +393,6 @@
         this.regencies_id = null;
         this.getRegenciesData();
       },
-      regencies_id: function(val, oldVal) {
-        this.districts_id = null;
-        this.getDistrictsData();
-      }
     }
   });
 </script>

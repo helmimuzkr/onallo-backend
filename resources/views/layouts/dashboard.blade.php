@@ -143,14 +143,19 @@
               <!-- Mobile Menu -->
               <ul class="navbar-nav d-block d-lg-none mt-3">
                 <li class="nav-item">
-                  <a class="nav-link" href="#"> Hi, Angga </a>
+                  <a class="nav-link" href="#"> Hi, {{ Auth::user()->name }}! </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('dashboard') }}" class="dropdown-item">Transaction</a>
-                  <a href="{{ route('dashboard-account') }}" class="dropdown-item">Settings</a>
+                  <a href="{{ route('home') }}" class="nav-link d-inline-block">Back to store</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-inline-block" href="#"> Cart </a>
+                  <a href="{{ route('dashboard') }}" class="nav-link d-inline-blocm">Transaction</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('dashboard-account') }}" class="nav-link d-inline-block">Settings</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-inline-block" href="{{ route('cart') }}"> Cart </a>
                 </li>
               </ul>
             </div>

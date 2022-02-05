@@ -59,14 +59,6 @@
                                                     {{ $transactions->user->phone_number }}
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="product-title">Ongkos Pengiriman</div>
-                                                    <div class="product-subtitle">Rp{{ number_format($item->shipping_price, 0, '.','.') }}</div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="product-title">Total</div>
-                                                    <div class="product-subtitle">Rp{{ number_format($transactions->total, 0, '.','.') }}</div>
-                                                </div>
                                                 <div class="col-12">
                                                     <div class="row" id="transactionStatus">
                                                         <div class="col-6">
@@ -137,6 +129,31 @@
                                                     <div class="product-subtitle">
                                                     {{ $transactions->notes }}
                                                     </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="product-title">Kurir</div>
+                                                    @if ( $transactions->courier == 'jne')
+                                                        <div class="product-subtitle">JNE</div>
+                                                    @elseif ($transactions->courier == 'pos')
+                                                        <div class="product-subtitle">POS</div>
+                                                    @else
+                                                    <div class="product-subtitle">TIKI</div>
+                                                    @endif
+                                                   
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="product-title">Jenis Pelayanan</div>
+                                                    <div class="product-subtitle">{{ preg_replace('/[^a-z]/i', '', $transactions->cost); }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="product-title">Ongkos Pengiriman</div>
+                                                    <div class="product-subtitle">Rp{{ filter_var($transactions->cost, FILTER_SANITIZE_NUMBER_INT) }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="product-title">Total</div>
+                                                    <div class="product-subtitle">Rp{{ number_format($transactions->total, 0, '.','.') }}</div>
                                                 </div>
                                             </div>
                                             <div class="row margin-form mt-4" id="shippingStatus">

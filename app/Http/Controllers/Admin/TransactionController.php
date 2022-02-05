@@ -101,10 +101,6 @@ class TransactionController extends Controller
                                         ->whereHas('transaction', function($transaction){
                                             $transaction->where('users_id', Auth::user()->id);
                                         })->get();
-        $transactions_paginate = TransactionDetail::with(['transaction.user', 'product.galleries'])
-                                        ->whereHas('transaction', function($transaction){
-                                            $transaction->where('users_id', Auth::user()->id);
-                                        })->paginate(5);
 
         $item = TransactionDetail::with(['transaction.user', 'product.galleries'])
                                         ->findOrFail($id);
@@ -116,7 +112,6 @@ class TransactionController extends Controller
             'item' => $item,
             'transaction' => $transaction,
             'transactions' => $transactions,
-            'transactions_paginate' => $transactions_paginate,
         ]);
     }
 

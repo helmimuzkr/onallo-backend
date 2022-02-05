@@ -53,12 +53,12 @@
                 <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action
                 {{ (request()->is('admin/user*')) ? 'active' : '' }}">
                   Users</a>
-                <a href="{{ route('logout') }}"
+                  <a href="{{ route('logout') }}"
                   onclick="event.preventDefault(); 
                   document.getElementById('logout-form').submit();"  
                   class="list-group-item list-group-item-action"
                   >Logout
-                </a>
+              </a>
                 <form id="logout-form" 
                     action="{{ route('logout') }}" 
                     method="POST" 
@@ -133,9 +133,15 @@
                 <li class="nav-item">
                   <a class="nav-link font-weight-bold" href="#"> Hi, {{Auth::user()->name}}! </a>
                 </li>
-                <li class="nav-item">
+                <li class="navbar-item">
                   <div class="dropdown-divider"></div>
-                  <a class="nav-link d-inline ml-4" href="/">Logout</a>
+                  <a class="nav-link" href="{{ route('logout') }}"
+                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                  Logout
+                  </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
                 </li>
               </ul>
             </div>

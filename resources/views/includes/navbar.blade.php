@@ -2,13 +2,13 @@
 @guest
   <nav class="
     navbar navbar-expand-lg navbar-light
-    bg-light navbar-store fixed-top navbar-fixed-top " data-aos="fade-down">
+    bg-white navbar-store fixed-top navbar-fixed-top" data-aos="fade-down">
     <div class="container">
       <a href="{{ route('home') }}" class="navbar-brand mr-0">
         <img src="/images/logo-onalloid.svg" alt="Logo" />
       </a>
       <button
-        class="navbar-toggler"
+        class="navbar-toggler mt-2"
         type="button"
         data-toggle="collapse"
         data-target="#navbarResponsive"
@@ -41,7 +41,7 @@
 @auth
   <nav class="
   navbar navbar-expand-lg navbar-light
-  bg-light navbar-store fixed-top navbar-fixed-top py-0" data-aos="fade-down">
+  bg-white navbar-store fixed-top navbar-fixed-top py-2" data-aos="fade-down">
     <div class="container">
       <a href="{{ route('home') }}" class="navbar-brand mr-5">
         <img src="/images/logo-onalloid.svg" alt="Logo" />
@@ -118,8 +118,25 @@
           <li class="nav-item">
             <a href="#" class="nav-link">Hi, {{ Auth::user()->name }}</a>
           </li>
+          <li class="nav-item">
+              <a href="{{ route('dashboard-transaction') }}" class="nav-link d-inline-block">Transaction
+              </a>
+          </li>
+          <li class="nav-item">
+              <a href="{{ route('dashboard-account') }}" class="nav-link d-inline-block">Settings</a>
+          </li>
           <li class="navbar-item">
-            <a href="#" class="nav-link d-inline-block">Cart</a>
+            <a href="{{ route('cart') }}" class="nav-link d-inline-block">Cart</a>
+          </li>
+          <li class="navbar-item">
+            <div class="dropdown-divider"></div>
+            <a class="nav-link" href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Logout
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
           </li>
         </ul>
       </div>
