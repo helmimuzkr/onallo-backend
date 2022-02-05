@@ -138,8 +138,7 @@
                                                         <div class="product-subtitle">POS</div>
                                                     @else
                                                     <div class="product-subtitle">TIKI</div>
-                                                    @endif
-                                                   
+                                                    @endif 
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="product-title">Jenis Pelayanan</div>
@@ -200,7 +199,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row my-4">
                                         <div class="col-12">
@@ -208,28 +207,26 @@
                                         </div>
                                     </div>
                                     <div class="row margin-form"> 
-                                        <h5 class="col-12 mb-3">
-                                        Product
-                                        </h5>
+                                        <h5 class="col-12 mb-3">Product</h5>
                                         <div class="col">
                                             {{-- Perulangan Ga muncul --}}
-                                        @foreach ($transaction as $transaction )
-                                            <div class="card card-list d-block">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                <div class="col-md-1">
-                                                    <img
-                                                    src="{{ Storage::url($transaction->product->galleries->first()->photos ?? '') }}"
-                                                    alt=""
-                                                    class="w-50"/>
+                                            @foreach ($transaction as $transaction )
+                                                <div class="card card-list d-block">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-1">
+                                                                <img
+                                                                src="{{ Storage::url($transaction->product->galleries->first()->photos ?? '') }}"
+                                                                alt=""
+                                                                class="w-50"/>
+                                                            </div>
+                                                            <div class="col-md-3">{{ $transaction->code }}</div>
+                                                            <div class="col-md-3">{{ $transaction->product->name }}</div>
+                                                            <div class="col-md-3">Rp{{ number_format($transaction->price, 0, '.','.') }}</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-3">{{ $transaction->code }}</div>
-                                                <div class="col-md-3">{{ $transaction->product->name }}</div>
-                                                <div class="col-md-3">Rp{{ number_format($transaction->price, 0, '.','.') }}</div>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -244,14 +241,14 @@
 
 
 @push('addon-script')
-<script src="/vendor/vue/vue.js"></script>
-<script>
-  var shippingStatus = new Vue({
-    el: "#shippingStatus",
-    data: {
-      status: "{{ $item->shipping_status }}",
-        resi: "{{ $item->resi }}",
-    },
-  });
-</script>
+    <script src="/vendor/vue/vue.js"></script>
+    <script>
+        var shippingStatus = new Vue({
+            el: "#shippingStatus",
+            data: {
+            status: "{{ $item->shipping_status }}",
+                resi: "{{ $item->resi }}",
+            },
+        });
+    </script>
 @endpush

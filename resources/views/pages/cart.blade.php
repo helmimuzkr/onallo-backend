@@ -2,11 +2,7 @@
 
 @section('content')
 <div class="page-content page-cart">
-  <section
-    class="store-breadcrumbs"
-    data-aos="fade-down"
-    data-aos-delay="100"
-  >
+  <section class="store-breadcrumbs" data-aos="fade-down" data-aos-delay="100">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -27,15 +23,8 @@
     <div class="container">
       <!-- Table Cart -->
       <div class="row">
-        <div
-          class="col-12 table-tesponsive"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          <table
-            class="table table-borderless table-cart"
-            aria-describedby="Cart"
-          >
+        <div class="col-12 table-tesponsive" data-aos="fade-up" data-aos-delay="100">
+          <table class="table table-borderless table-cart" aria-describedby="Cart">
             <thead>
               <tr>
                 <td scope="col">Gambar</td>
@@ -91,76 +80,46 @@
           </table>
         </div>
       </div>
-
-      <!-- Garis Pembatas -->
-      <!--           <div class="row" data-aos="fade-up" data-aos-delay="200">
-        <div class="col-md-12">
-          <hr />
-        </div>
-      </div> -->
-
-      <!-- Form Alamat -->
       <form action="{{ route('checkout') }}" method="POST" id="locations" enctype="multipart/form-data">
         @csrf
-        <div
-        class="row mb-2 aos-init"
-        data-aos="fade-up"
-        data-aos-delay="350">
+        <div class="row mb-2 aos-init" data-aos="fade-up" data-aos-delay="350">
         <div class="col-12">
           <h5 class="mt-5 mb-4">Detail Pengiriman</h5>
         </div>
         <div class="col-md-12">
           <div class="form-group">
             <label for="address">Alamat</label>
-            <input
-              type="text"
-              class="form-control"
-              id="address"
-              name="alamat"
-              value="Alamat"
-            />
+            <input type="text" class="form-control" id="address" name="alamat" value="{{ $cart->user->address }}" required/>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="provinces_id">Provinsi</label>
-            <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces" v-model="provinces_id">
+            <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces" v-model="provinces_id" required>
               <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
             </select>
-            <select v-else class="form-control"></select>
+            <select v-else class="form-control" required></select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label >Kota/Kabupaten</label>
-            <select name="city_id" id="regencies_id" class="form-control" v-if="regencies" v-model="city_id">
+            <select name="city_id" id="regencies_id" class="form-control" v-if="regencies" v-model="city_id" required>
               <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}</option>
             </select>
-            <select v-else class="form-control"></select>
+            <select v-else class="form-control" required></select>
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label for="zip_code">Kode Pos</label>
-            <input
-            type="text"
-            class="form-control"
-            id="zip_code"
-            name="zip_code"
-            value=""
-          />
+            <input type="text" class="form-control" id="zip_code" name="zip_code" value="{{ $cart->user->zip_code }}" required/>
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label for="phone_number">Nomor Telepon</label>
-            <input
-              type="text"
-              class="form-control"
-              id="phone_number"
-              name="phone_number"
-              value=""
-            />
+            <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ $cart->user->phone_number }}" required/>
           </div>
         </div>
         <div class="col-md-6">
@@ -171,64 +130,50 @@
               class="form-control"
               id="notes"
               name="notes"
-              value=""
             />
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-6 mt-3">
           <div class="form-group">
-            <label >KURIR PENGIRIMAN</label>
-                  
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input select-courier"
-                      type="radio"
-                      name="courier"
-                      id="ongkos_kirim-jne"
-                      value="jne"
-                      v-model="courier_type"
-                      @change="getOngkir()"
-                    />
-                    <label
-                      class="form-check-label font-weight-bold mr-4"
-                      for="ongkos_kirim-jne"
-                    >
-                      JNE</label
-                    >
-                    <input
-                      class="form-check-input select-courier"
-                      type="radio"
-                      name="courier"
-                      id="ongkos_kirim-tiki"
-                      value="tiki"
-                      v-model="courier_type"
-                      @change="getOngkir()"
-                    />
-                    <label
-                      class="form-check-label font-weight-bold mr-4"
-                      for="ongkos_kirim-jnt"
-                      >TIKI</label
-                    >
-                    <input
-                      class="form-check-input select-courier"
-                      type="radio"
-                      name="courier"
-                      id="ongkos_kirim-pos"
-                      value="pos"
-                      v-model="courier_type"
-                      @change="getOngkir()"
-                    />
-                    <label
-                      class="form-check-label font-weight-bold"
-                      for="ongkos_kirim-jnt"
-                      >POS</label
-                    >
+            <div class="row">
+              <div class="col">
+                <label class="font-weight-bold">Kurir Pengiriman</label>
+                <div class="form-check form-check">
+                  <input
+                    class="form-check-input select-courier"
+                    type="radio"
+                    name="courier"
+                    id="ongkos_kirim-jne"
+                    value="jne"
+                    v-model="courier_type"
+                    @change="getOngkir()" />
+                  <label class="form-check-label  mr-4" for="ongkos_kirim-jne" >JNE</label >
+                  <input
+                    class="form-check-input select-courier"
+                    type="radio"
+                    name="courier"
+                    id="ongkos_kirim-tiki"
+                    value="tiki"
+                    v-model="courier_type"
+                    @change="getOngkir()" />
+                  <label class="form-check-label  mr-4" for="ongkos_kirim-tiki" >TIKI</label>
+                  <input
+                    class="form-check-input select-courier"
+                    type="radio"
+                    name="courier"
+                    id="ongkos_kirim-pos"
+                    value="pos"
+                    v-model="courier_type"
+                    @change="getOngkir()" />
+                  <label class="form-check-label " for="ongkos_kirim-pos" >POS</label>
                 </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-6 mt-3">
           <div class="form-group" v-if="cost">
-            <label class="font-weight-bold">SERVICE KURIR</label>
+            <label class="font-weight-bold">Layanan Jasa</label>
             <br />
            <div
               v-for="value in costs"
