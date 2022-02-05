@@ -97,10 +97,15 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $transaction = TransactionDetail::with(['transaction.user', 'product.galleries'])
-                                        ->whereHas('transaction', function($transaction){
-                                            $transaction->where('users_id', Auth::user()->id);
-                                        })->get();
+        // $transaction = TransactionDetail::with(['transaction.user', 'product.galleries'])
+        //                                 ->whereHas('transaction', function($transaction){
+        //                                     $transaction->where('users_id', Auth::user()->id);
+        //                                 })->get();
+
+        $transaction = TransactionDetail::with(['transaction', 'transaction.user', 'product.galleries'])
+                                ->whereHas('transaction', function($transaction){
+                                    $transaction->where('users_id', Auth::user()->id);
+                                })->get();
 
         $item = TransactionDetail::with(['transaction.user', 'product.galleries'])
                                         ->findOrFail($id);

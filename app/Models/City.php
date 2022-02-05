@@ -9,4 +9,20 @@ class City extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    protected $table = 'cities';
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'province_id'
+    ];
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
 }

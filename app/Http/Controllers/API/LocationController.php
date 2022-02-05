@@ -39,7 +39,7 @@ class LocationController extends Controller
     public function checkOngkir(Request $request)
     {
         $cost =  RajaOngkir::ongkosKirim([
-            'origin' => 67, //ID kota / Kabupaten asal/ 113 adalah kode kota Bekasi
+            'origin' => 258, //ID kota / Kabupaten asal/ 268 adalah kode kota Ternate
             'destination' => $request->city_destination, //Id Kota //kabupaten tujuan
             'weight' => 100, // berat barang dalam gram sample 100
             'courier' => $request->courier // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter

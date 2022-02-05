@@ -41,7 +41,7 @@
                     />
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <label for="address">Alamat</label>
                     <input
@@ -64,18 +64,9 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="regencies_id">Kota/Kabupaten</label>
-                    <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies" v-model="regencies_id">
+                    <label>Kota/Kabupaten</label>
+                    <select name="city_id" id="regencies_id" class="form-control" v-if="regencies" v-model="city_id">
                       <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}</option>
-                    </select>
-                    <select v-else class="form-control"></select>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="districts_id">Kecamatan</label>
-                    <select name="districts_id" id="districts_id" class="form-control" v-if="districts" v-model="districts_id">
-                      <option v-for="district in districts" :value="district.id">@{{ district.name }}</option>
                     </select>
                     <select v-else class="form-control"></select>
                   </div>
@@ -142,8 +133,7 @@
       regencies: null,
       districts: null,
       provinces_id: null,
-      regencies_id: null,
-      districts_id: null,
+      city_id: null,
 
     },
     methods: {
@@ -156,16 +146,9 @@
       },
       getRegenciesData: function() {
         var self = this;
-        axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
+        axios.get('{{ url('api/city') }}/' + self.provinces_id)
         .then(function(response) {
             self.regencies = response.data;
-          }) 
-      },
-      getDistrictsData: function() {
-        var self = this;
-        axios.get('{{ url('api/districts') }}/' + self.regencies_id)
-        .then(function(response) {
-            self.districts = response.data;
           }) 
       },
     },
@@ -174,10 +157,6 @@
         this.regencies_id = null;
         this.getRegenciesData();
       },
-      regencies_id: function(val, oldVal) {
-        this.districts_id = null;
-        this.getDistrictsData();
-      }
     }
   });
 </script>
