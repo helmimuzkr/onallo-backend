@@ -61,31 +61,28 @@
         <div class="row">
           @php $increamentProduct = 0 @endphp
           @forelse ($products as $product)
-          <div
-          class="col-md-6 col-lg-3"
-          data-aos="fade-up"
-          data-aos-delay="{{ $increamentProduct+= 100 }}">
-          <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
-            <div class="card">
-              <div class="products-thumbnail">
-                <div
-                  class="products-image"
-                  style="
-                    @if($product->galleries->count())
-                        background-image: url('{{ Storage::url($product->galleries->first()->photos) }}')
-                    @else 
-                        background-image: #eee
-                    @endif
-                  "
-                ></div>
+              <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $increamentProduct+= 100 }}">
+                <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
+                  <div class="card">
+                    <div class="products-thumbnail">
+                      <div
+                        class="products-image"
+                        style="
+                          @if($product->galleries->count())
+                              background-image: url('{{ Storage::url($product->galleries->first()->photos) }}')
+                          @else 
+                              background-image: #eee
+                          @endif
+                        ">
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="products-text card-tittle">{{ $product->name }}</div>
+                      <div class="products-price">Rp{{ number_format($product->price, 0, '.', '.') }}</div>
+                    </div>
+                  </div>
+                </a>
               </div>
-              <div class="card-body">
-                <div class="products-text card-tittle">{{ $product->name }}</div>
-                <div class="products-price">Rp{{ $product->price }}</div>
-              </div>
-            </div>
-          </a>
-        </div>
           @empty
             <div class="col-12 text-center py-5" 
                   data-aos="fade-up" 
@@ -93,6 +90,7 @@
               No Product Found
             </div>
           @endforelse
+        </div>
       </div>
     </section>
   </div>

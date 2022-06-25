@@ -40,39 +40,39 @@
       <div class="col-12 mt-2">
         <h5 class="mb-3">Recent Transactions</h5>
         @foreach ($transaction_data as $transaction)
-        <a
-        class="card card-list d-block"
-        href="{{ route('dashboard-transaction-detail', $transaction->id) }}">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-1">
-              <img
-                src="{{ Storage::url($transaction->product->galleries->first()->photos ?? '') }}"
-                alt=""
-                class="w-75"
-              />
+            <a
+            class="card card-list d-block"
+            href="{{ route('transaction.edit', $transaction->id) }}">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">{{ $transaction->code }}</div>
+                @if ($transaction->transaction_status == 'SUCCESS')
+                    <div class="col-md-3 font-weight-bold text-success">Pembayaran Sukses</div>
+                @elseif ($transaction->transaction_status == 'FAILED')
+                    <div class="col-md-3 font-weight-bold text-danger">Pesanan Gagal</div> 
+                @else
+                    <div class="col-md-3 font-weight-bold">Belum dibayar</div> 
+                @endif
+                <div class="col-md-3">Rp{{ number_format($transaction->total, 0, '.','.') }}</div>
+                <div class="col-md-2">{{ $transaction->created_at->format('Y-m-d') }}</div>
+                <div class="col-md-1 d-none d-md-block">
+                  <img
+                    src="/images/dashboard-icon-arrow.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
             </div>
-            <div class="col-md-4">{{ $transaction->product->name ?? '' }}</div>
-            <div class="col-md-3">{{ $transaction->code ?? '' }}</div>
-            <div class="col-md-3">{{ $transaction->created_at ?? '' }}</div>
-            <div class="col-md-1 d-none d-md-block">
-              <img
-                src="/images/dashboard-icon-arrow.svg"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </a>
+          </a>
         @endforeach
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-md-4">
-        <div class="link text-center">
-          {{ $transaction_data->links() }}
+    <div class="row justify-content-center my-4">
+        <div class="col-md-3">
+            <div class="link text-center">
+                {{ $transaction_data->links() }}
+            </div>
         </div>
-      </div>
     </div>
   </div>
  </div>

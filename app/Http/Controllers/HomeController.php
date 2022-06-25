@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {   
-        $products = Product::with(['galleries'])->take(4)->get(); //Jadikan array supaya bisa ambil lebih dari 1 relasi
+        $products = Product::with(['galleries'])->take(4)->latest()->get(); //Jadikan array supaya bisa ambil lebih dari 1 relasi
         return view('pages.home', [
             'products' => $products
         ]);

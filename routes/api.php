@@ -29,6 +29,8 @@ Route::get('districts/{regencies_id}', [\App\Http\Controllers\API\LocationContro
         
 Route::post('/checkout/callback', [\App\Http\Controllers\CheckoutController::class, 'callback'])
         ->name('midtrans-callback');
+Route::get('/checkout/success', [\App\Http\Controllers\CheckoutController::class, 'success'])
+        ->name('midtrans-success');
 
 Route::GET('/city/{province_id}', [\App\Http\Controllers\API\LocationController::class, 'city'])
         ->name('api-city');

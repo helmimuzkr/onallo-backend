@@ -143,19 +143,29 @@
               <!-- Mobile Menu -->
               <ul class="navbar-nav d-block d-lg-none mt-3">
                 <li class="nav-item">
-                  <a class="nav-link" href="#"> Hi, {{ Auth::user()->name }}! </a>
+                  <a class="nav-link font-weight-bold" href="#"> Hi, {{ Auth::user()->name }}! </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('home') }}" class="nav-link d-inline-block">Back to store</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('dashboard') }}" class="nav-link d-inline-blocm">Transaction</a>
+                  <a href="{{ route('dashboard-transaction') }}" class="nav-link d-inline-blocm">Transaction</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('dashboard-account') }}" class="nav-link d-inline-block">Settings</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link d-inline-block" href="{{ route('cart') }}"> Cart </a>
+                </li>
+                <li class="navbar-item">
+                  <div class="dropdown-divider"></div>
+                  <a class="nav-link" href="{{ route('logout') }}"
+                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                  Logout
+                  </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
                 </li>
               </ul>
             </div>

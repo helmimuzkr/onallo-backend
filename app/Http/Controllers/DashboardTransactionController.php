@@ -14,14 +14,22 @@ class DashboardTransactionController extends Controller
     public function dashboard_transaction() {
         $transactions = Transaction::with(['user'])
                                        ->where('users_id', Auth::user()->id)
-                                        ->get();
-        $transactions_paginate = Transaction::with(['user'])
-                                            ->where('users_id', Auth::user()->id)
-                                            ->paginate(5);
+                                       ->orderBy('created_at', 'desc')
+                                        ->paginate(5);
+                                        
+        // $transactions = Transaction::with(['user'])
+        //                               ->where('users_id', Auth::user()->id)
+        //                               ->orderBy('created_at', 'desc')
+        //                                 ->get();
+                                        
+        // $transactions_paginate = Transaction::with(['user'])
+        //                                     ->where('users_id', Auth::user()->id)
+        //                                     ->paginate(3);
+        // dd('$transactions_paginate')
 
         return view('pages.dashboard-transaction', [
             'transactions' => $transactions,
-            'paginate' => $transactions_paginate
+            'paginate' => $transactions
         ]);
     }
 

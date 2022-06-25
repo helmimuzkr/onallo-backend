@@ -15,7 +15,7 @@ class DashboardController extends Controller
 {
     public function index() {
         $transactions = TransactionDetail::with(['transaction.user','product.galleries']);
-        $transactions_data= TransactionDetail::with(['transaction.user','product.galleries'])->paginate(3);
+        $recentTransactions = Transaction::with(['user'])->orderBy('created_at', 'desc')->paginate(4);
         
         // dd($transactions);
 
@@ -27,7 +27,7 @@ class DashboardController extends Controller
 
         return view('pages.admin.dashboard', [
             'transaction' => $transactions->count(),
-            'transaction_data' => $transactions_data,
+            'transaction_data' => $recentTransactions,
             // 'transaction' => $transactions,
             'revenue' => $revenue,
             'customer' => $customer,

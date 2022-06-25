@@ -97,6 +97,7 @@ class CheckoutController extends Controller
 
     public function callback(Request $request)
     {
+        // dd('test callback');
         // Set konfigurasi midtrans
         Config::$serverKey = config('services.midtrans.serverKey');
         Config::$isProduction = config('services.midtrans.isProduction');
@@ -111,35 +112,39 @@ class CheckoutController extends Controller
         $type = $notification->payment_type;
         $fraud = $notification->fraud_status;
         $order_id = $notification->order_id;
-
+        
+        
+        
         // Cari transaksi berdasarkan ID
-        $transaction = Transaction::findOrFail($order_id);
+        // $transaction = Transaction::findOrFail($order_id);
+        $transaction = Transaction::where('code', $order_id)->first();
+        // dd($transaction);
 
         // Handle notification status midtrans
         if ($status == 'capture') {
             if ($type == 'credit_card'){
                 if($fraud == 'challenge'){
-                    $transaction->status = 'PENDING';
+                    $transaction->transaction_status = 'PENDING';
                 }
                 else {
-                    $transaction->status = 'SUCCESS';
+                    $transaction->transaction_status = 'SUCCESS';
                 }
             }
         }
         else if ($status == 'settlement'){
-            $transaction->status = 'SUCCESS';
+            $transaction->transaction_status = 'SUCCESS';
         }
         else if($status == 'pending'){
-            $transaction->status = 'PENDING';
+            $transaction->transaction_status = 'PENDING';
         }
         else if ($status == 'deny') {
-            $transaction->status = 'CANCELLED';
+            $transaction->transaction_status = 'CANCELLED';
         }
         else if ($status == 'expire') {
             $transaction->status = 'CANCELLED';
         }
         else if ($status == 'cancel') {
-            $transaction->status = 'CANCELLED';
+            $transaction->transaction_status = 'CANCELLED';
         }
 
         // Simpan transaksi
@@ -186,5 +191,10 @@ class CheckoutController extends Controller
                 ]
             ]);
         }
+    }
+    
+    public function success(Request $request)
+    {
+        return view('pages.success');
     }
 }

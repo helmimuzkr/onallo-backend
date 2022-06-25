@@ -4,9 +4,9 @@
 <div class="section-content section-dashboard-home"data-aos="fade-up">
  <div class="container-fluid">
   <div class="dashboard-heading">
-    <h2 class="dashboard-title">Product</h2>
+    <h2 class="dashboard-title">Transactions</h2>
     <p class="dashboard-subtitle">
-      List of Products.
+      List of Transactions.
     </p>
   </div>
   <div class="dashboard-content">

@@ -60,7 +60,7 @@
                       <div class="products-text card-tittle">
                         {{ $product->name }}
                       </div>
-                      <div class="products-price">Rp{{ $product->price }}-,</div>
+                      <div class="products-price">Rp{{ number_format($product->price, 0, '.', '.') }}</div>
                     </div>
                   </div>
                 </a>

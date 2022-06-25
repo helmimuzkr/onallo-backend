@@ -116,7 +116,7 @@
         <!-- Mobile Menu -->
         <ul class="navbar-nav d-block d-lg-none">
           <li class="nav-item">
-            <a href="#" class="nav-link">Hi, {{ Auth::user()->name }}</a>
+            <a href="#" class="nav-link font-weight-bold">Hi, {{ Auth::user()->name }}</a>
           </li>
           <li class="nav-item">
               <a href="{{ route('dashboard-transaction') }}" class="nav-link d-inline-block">Transaction

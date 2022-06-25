@@ -12,8 +12,8 @@
               menginformasikan resi secept mungkin!
             </p>
             <div>
-              <a class="btn btn-dark w-50 mt-4" href="/dashboard.html">
-                My Dashboard
+              <a class="btn btn-dark w-50 mt-4" href="{{ route('dashboard-transaction')  }}">
+                My Transactions
               </a>
               <a class="btn btn-signup w-50 mt-2" href="/catalog.html">
                 Go To Shopping

@@ -212,7 +212,7 @@
         </div>
         <div class="col-4 col-md-2 mt-3">
           <div class="product-title" name="courier"  id="courier_cost">Rp0</div>
-          <div class="product-subtitle">Tujuan <p id="tujuan"></p></div>
+          <div class="product-subtitle">Ongkir</div>
         </div>
         <div class="col-4 col-md-2 mt-3">
           <div class="product-title" style="color: #073466" id="totalPembayaran">Rp0
